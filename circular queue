@@ -1,0 +1,175 @@
+/*code*/
+
+
+
+#include<stdio.h>
+#include<stdlib.h>
+#define SIZE 3
+int queue[SIZE], rear=-1,front=-1;
+int isEmpty()
+{
+    if(front==-1)
+        return 1;
+    return 0;
+}
+int isFull()
+{
+    if(front==rear+1||front==0&&rear==SIZE-1)
+        return 1;
+    return 0;
+}
+void enqueue(int x)
+{
+    if(isFull())
+        printf("\nqueue overflow");
+    else
+    {
+        if(isEmpty()){
+            front=0;
+        }
+        rear=(rear+1)%SIZE;
+        queue[rear]=x;
+        printf("inserted:%d",queue[rear]);
+    }
+}
+void dequeue()
+{
+  if(isEmpty())
+        printf("\nqueue underflow");
+  else
+  {
+      int m=queue[front];
+      if(front==rear)
+        front=rear=-1;
+      else
+        front=(front+1)%SIZE;
+      printf("\ndeleted element: %d",m);
+  }
+}
+void display()
+{
+   if(front==-1)
+        printf("\n queue is empty");
+    else
+    { int i;
+        for( i=front;i!=rear;i=(i+1)%SIZE)
+            printf("  %d  ",queue[i]);
+        printf("  %d  ",queue[i]);
+}
+}
+void main()
+{
+    int x,c;
+    while(1)
+    {
+        printf("\n\n1.Enqueue\n 2.Dequeue\n  3.Display\n 4.Exit ");
+        printf("\nenter choice");
+        scanf("%d",&c);
+        switch(c)
+        {
+            case 1: printf(" enter element");
+                    scanf("%d",&x);
+                    enqueue(x);
+                    break;
+            case 2: dequeue();
+                    break;
+            case 3: display();
+                    break;
+            case 4: exit(0);
+            default : printf("invalid choice try again");
+        }
+    }
+}
+
+
+
+
+
+/*output*/
+
+
+
+1.Enqueue
+ 2.Dequeue
+  3.Display
+ 4.Exit
+enter choice1
+ enter element3
+inserted:3
+
+1.Enqueue
+ 2.Dequeue
+  3.Display
+ 4.Exit
+enter choice1
+ enter element3
+inserted:3
+
+1.Enqueue
+ 2.Dequeue
+  3.Display
+ 4.Exit
+enter choice1
+ enter element3
+inserted:3
+
+1.Enqueue
+ 2.Dequeue
+  3.Display
+ 4.Exit
+enter choice1
+ enter element6
+
+queue overflow
+
+1.Enqueue
+ 2.Dequeue
+  3.Display
+ 4.Exit
+enter choice2
+
+deleted element: 3
+
+1.Enqueue
+ 2.Dequeue
+  3.Display
+ 4.Exit
+enter choice3
+  3    3
+
+1.Enqueue
+ 2.Dequeue
+  3.Display
+ 4.Exit
+enter choice2
+
+deleted element: 3
+
+1.Enqueue
+ 2.Dequeue
+  3.Display
+ 4.Exit
+enter choice1
+ enter element5
+inserted:5
+
+1.Enqueue
+ 2.Dequeue
+  3.Display
+ 4.Exit
+enter choice1
+ enter element7
+inserted:7
+
+1.Enqueue
+ 2.Dequeue
+  3.Display
+ 4.Exit
+enter choice3
+  3    5    7
+
+1.Enqueue
+ 2.Dequeue
+  3.Display
+ 4.Exit
+enter choice
