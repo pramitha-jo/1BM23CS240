@@ -102,6 +102,40 @@ output
  4.Display
  5.Exit
 enter choice1
+ enter element3
+inserted:3
+
+1.Enqueue
+ 2.Dequeue
+ 3.peek
+ 4.Display
+ 5.Exit
+enter choice1
+ enter element6
+inserted:6
+
+1.Enqueue
+ 2.Dequeue
+ 3.peek
+ 4.Display
+ 5.Exit
+enter choice4
+  3    6
+
+1.Enqueue
+ 2.Dequeue
+ 3.peek
+ 4.Display
+ 5.Exit
+enter choice9
+invalid choice try again
+
+1.Enqueue
+ 2.Dequeue
+ 3.peek
+ 4.Display
+ 5.Exit
+enter choice1
  enter element9
 inserted:9
 
@@ -168,3 +202,5 @@ enter choice5
 
 Process returned 0 (0x0)   execution time : 32.273 s
 Press any key to continue.
+
+
