@@ -26,26 +26,45 @@ int parse_int(char*);
  *  3. INTEGER_ARRAY b
  */
 
-int twoStacks(int maxSum, int a_count, int* a, int b_count, int* b) {
-    int sum=0, count=0,i=0;
-    for(i=0;i<a_count;i++){
-        sum+=a[i];
-        count+=1;
-        if(sum>maxSum){
-            count-=1;
+int twoStacks(int maxSum, int n, int* a, int m, int* b) {
+    
+    int current_sum_a = 0;
+    int count_a = 0;
+
+    // Calculate how many integers can be taken from stack A
+    for (int i = 0; i < n; i++) {
+        if (current_sum_a + a[i] <= maxSum) {
+            current_sum_a += a[i];
+            count_a++;
+        } else {
             break;
         }
-        sum+=b[i];
-        count+=1;
-        if(sum>maxSum){
-            count-=1;
-            break;
-        }
-        
     }
-    return count;
+
+    // Now try to add elements from stack B
+    int max_count = count_a;
+    int current_sum_b = 0;
+
+    // Loop through stack B
+    for (int j = 0; j < m; j++) {
+        current_sum_b += b[j];
+
+        // Adjust the sum by removing elements from stack A if needed
+        while (current_sum_a + current_sum_b > maxSum && count_a > 0) {
+            count_a--;
+            current_sum_a -= a[count_a];
+        }
+
+        // Check if the current total is valid and update max_count
+        if (current_sum_a + current_sum_b <= maxSum) {
+            max_count = (max_count > count_a + (j + 1)) ? max_count : (count_a + (j + 1));
+        }
+    }
+
+    return max_count;
+
 }
-        
+
 int main()
 {
     FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
