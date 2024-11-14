@@ -1,0 +1,275 @@
+// code
+
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<malloc.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *start= NULL;
+struct node *create(struct node *start);
+struct node *display(struct node *start);
+struct node *insert_beg(struct node *start);
+struct node *insert_end(struct node *start);
+struct node *insert_pos(struct node *start);
+struct node *delete_beg(struct node *start);
+struct node *delete_end(struct node *start);
+struct node *delete_node(struct node *start);
+int main()
+{
+    int ch;
+    while(1)
+    {
+        printf("\n\n1.create \t 2.Display \t 3.Insert beg \t4.Insert end\t5.Insert at pos \t6. delete beg\t7.delete end\t 8.delete node \t 9.exit");
+        printf("\nenter your choice:");
+        scanf("%d",&ch);
+        struct node *newnode;
+        switch(ch)
+        {
+            case 1: start=create(start);
+                    break;
+            case 2: start=display(start);
+            break;
+            case 3 : start=insert_beg(start);
+            break;
+            case 4: start=insert_end(start);
+            break;
+            case 5: start=insert_pos(start);
+            break;
+            case 6: start=delete_beg(start);
+            break;
+            case 7: start=delete_end(start);
+            break;
+            case 8: start=delete_node(start);
+            break;
+            case 9: exit(0);
+             default:printf("invalid");
+        }
+
+    }
+}
+struct node *create(struct node *start)
+{
+    struct node *newnode, *ptr;
+    int num;
+    printf("\nenter -1 to end");
+    printf("\nenter num:");
+    scanf("%d",&num);
+    while(num!=-1)
+    {
+        newnode=(struct node*)malloc(sizeof(struct node*));
+        newnode->data=num;
+        newnode->next=NULL;
+        if(start==NULL)
+            start=newnode;
+        else
+        {
+            ptr=start;
+            while(ptr->next!=NULL)
+                ptr=ptr->next;
+            ptr->next=newnode;
+        }
+        printf("enter num;");
+        scanf("%d",&num);
+
+    }
+    return start;
+
+};
+
+struct node *display(struct node *start)
+{
+     struct node *ptr;
+     ptr=start;
+     while(ptr->next!=NULL)
+     {
+         printf("\n%d",ptr->data);
+          ptr=ptr->next;
+     }
+      printf("\n%d",ptr->data);
+     return start;
+
+};
+
+struct node *insert_beg(struct node *start)
+{
+     struct node *newnode, *ptr;
+     int num;
+     printf("\nenter num");
+    scanf("%d",&num);
+    newnode=(struct node*)malloc(sizeof(struct node*));
+    newnode->data=num;
+    newnode->next=start;
+    start=newnode;
+    return start;
+};
+struct node *insert_end(struct node *start)
+{
+    struct node *newnode, *ptr;
+     int num;
+     printf("\nenter num:");
+    scanf("%d",&num);
+    newnode=(struct node*)malloc(sizeof(struct node*));
+    newnode->data=num;
+    newnode->next=NULL;
+    ptr=start;
+    while(ptr->next!=NULL)
+        ptr=ptr->next;
+    ptr->next=newnode;
+    return start;
+};
+struct node *insert_pos(struct node *start)
+{
+   struct node *newnode, *ptr,*preptr;
+     int num,pos,i=1;
+
+     printf("\nenter num:");
+    scanf("%d",&num);
+    newnode=(struct node*)malloc(sizeof(struct node*));
+    newnode->data=num;
+    printf("\nenter the position:");
+    scanf("%d",&pos);
+     ptr=start;
+    while(i!=pos)
+    {
+            preptr=ptr;
+            ptr=ptr->next;
+            i++;
+    }
+    preptr->next=newnode;
+    newnode->next=ptr;
+    return start;
+};
+struct node *delete_beg(struct node *start)
+{
+    struct node *ptr;
+    ptr=start;
+    start=start->next;
+    free(ptr);
+    return start;
+};
+struct node *delete_end(struct node *start)
+{
+  struct node *ptr, *preptr;
+    ptr=start;
+    while(ptr->next!=NULL)
+    {
+        preptr=ptr;
+        ptr=ptr->next;
+    }
+    preptr->next=NULL;
+    free(ptr);
+    return start;
+};
+struct node *delete_node(struct node *start)
+{
+    struct node *ptr, *preptr;
+    int num;
+    printf("\nenter num:");
+    scanf("%d",&num);
+    ptr=start;
+     while(ptr->data!=num)
+    {
+        preptr=ptr;
+        ptr=ptr->next;
+    }
+    preptr->next=ptr->next;
+    free(ptr);
+    return start;
+};
+
+
+
+/*Output
+
+1.create         2.Display       3.Insert beg   4.Insert end    5.Insert at pos         6. delete beg   7.delete end
+         8.delete node   9.exit
+enter your choice:1
+
+enter -1 to end
+enter num:3
+enter num;6
+enter num;-1
+
+
+1.create         2.Display       3.Insert beg   4.Insert end    5.Insert at pos         6. delete beg   7.delete end     8.delete node   9.exit
+enter your choice:2
+
+3
+6
+
+1.create         2.Display       3.Insert beg   4.Insert end    5.Insert at pos         6. delete beg   7.delete end     8.delete node   9.exit
+enter your choice:3
+
+enter num2
+
+
+1.create         2.Display       3.Insert beg   4.Insert end    5.Insert at pos         6. delete beg   7.delete end     8.delete node   9.exit
+enter your choice:4
+
+enter num:7
+
+
+1.create         2.Display       3.Insert beg   4.Insert end    5.Insert at pos         6. delete beg   7.delete end     8.delete node   9.exit
+enter your choice:2
+
+2
+3
+6
+7
+
+1.create         2.Display       3.Insert beg   4.Insert end    5.Insert at pos         6. delete beg   7.delete end     8.delete node   9.exit
+enter your choice:5
+
+enter num:4
+
+enter the position:3
+
+
+1.create         2.Display       3.Insert beg   4.Insert end    5.Insert at pos         6. delete beg   7.delete end     8.delete node   9.exit
+enter your choice:2
+
+2
+3
+4
+6
+7
+
+1.create         2.Display       3.Insert beg   4.Insert end    5.Insert at pos         6. delete beg   7.delete end     8.delete node   9.exit
+enter your choice:6
+
+
+1.create         2.Display       3.Insert beg   4.Insert end    5.Insert at pos         6. delete beg   7.delete end     8.delete node   9.exit
+enter your choice:7
+
+
+1.create         2.Display       3.Insert beg   4.Insert end    5.Insert at pos         6. delete beg   7.delete end     8.delete node   9.exit
+enter your choice:2
+
+3
+4
+6
+
+1.create         2.Display       3.Insert beg   4.Insert end    5.Insert at pos         6. delete beg   7.delete end     8.delete node   9.exit
+enter your choice:8
+
+enter num:4
+
+
+1.create         2.Display       3.Insert beg   4.Insert end    5.Insert at pos         6. delete beg   7.delete end     8.delete node   9.exit
+enter your choice:2
+
+3
+6
+
+1.create         2.Display       3.Insert beg   4.Insert end    5.Insert at pos         6. delete beg   7.delete end     8.delete node   9.exit
+enter your choice:9
+
+Process returned 0 (0x0)   execution time : 47.688 s
+Press any key to continue.
+
+*/
+
