@@ -1,0 +1,160 @@
+//Input
+
+
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *front=NULL,*rear=NULL;
+
+void insert(int num)
+{
+    struct node *newnode;
+    newnode=(struct node*)malloc(sizeof(struct node*));
+    newnode->data=num;
+    newnode->next=NULL;
+    if(front==NULL)
+    {
+        front=newnode;
+        rear=newnode;
+    }
+    else
+    {
+        rear->next=newnode;
+        rear=newnode;
+    }
+}
+
+void Delete()
+{
+    if(front==NULL)
+    {
+        printf("queue Underflow");
+    }
+    else
+    {
+        printf("\ndeleted:%d",front->data);
+        front=front->next;
+    }
+}
+
+void display()
+{
+    if(front==NULL)
+    {
+        printf("\nqueue Empty");
+    }
+    else
+    {
+        struct node *ptr;
+        ptr=front;
+        while(ptr!=NULL)
+        {
+            printf("%d  ",ptr->data);
+            ptr=ptr->next;
+        }
+    }
+
+}
+
+void main()
+{
+    int n,c;
+    while(1)
+    {
+       printf("\n\n1.insert\t 2.delete\t 3.display\t 4.exit\n your choice:");
+       scanf("%d",&c);
+       switch(c)
+       {
+           case 1: printf("\nenter element:");
+                   scanf("%d",&n);
+                   insert(n);
+                   break;
+            case 2:Delete();
+            break;
+            case 3: display();
+            break;
+            case 4: exit(0);
+            default: printf("\ninvalid choice");
+       }
+    }
+}
+
+
+
+
+
+
+
+
+/* Output
+
+1.insert         2.delete        3.display       4.exit
+ your choice:2
+queue Underflow
+
+1.insert         2.delete        3.display       4.exit
+ your choice:3
+
+queue Empty
+
+1.insert         2.delete        3.display       4.exit
+ your choice:1
+
+enter element:3
+
+
+1.insert         2.delete        3.display       4.exit
+ your choice:1
+
+enter element:5
+
+
+1.insert         2.delete        3.display       4.exit
+ your choice:1
+
+enter element:7
+
+
+1.insert         2.delete        3.display       4.exit
+ your choice:3
+3  5  7
+
+1.insert         2.delete        3.display       4.exit
+ your choice:2
+
+deleted:3
+
+1.insert         2.delete        3.display       4.exit
+ your choice:2
+
+deleted:5
+
+1.insert         2.delete        3.display       4.exit
+ your choice:3
+7
+
+1.insert         2.delete        3.display       4.exit
+ your choice:2
+
+deleted:7
+
+1.insert         2.delete        3.display       4.exit
+ your choice:2
+queue Underflow
+
+1.insert         2.delete        3.display       4.exit
+ your choice:3
+
+queue Empty
+
+1.insert         2.delete        3.display       4.exit
+ your choice:4
+
+Process returned 0 (0x0)   execution time : 26.069 s
+Press any key to continue.
+*/
+
