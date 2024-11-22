@@ -1,0 +1,158 @@
+//Input
+
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *top=NULL;
+void push(int num)
+{
+ struct node *newnode;
+ newnode=(struct node*)malloc(sizeof(struct node*));
+ newnode->data=num;
+ newnode->next=NULL;
+
+ if(top==NULL)
+ {
+     newnode->next=NULL;
+     top=newnode;
+
+ }
+ else
+ {
+     newnode->next=top;
+     top=newnode;
+
+
+ }
+}
+
+void pop()
+{
+    if(top==NULL)
+    {
+        printf("\nStack Underflow");
+    }
+    else
+    {
+        printf("deleted:%d", top->data);
+        top=top->next;
+    }
+}
+
+void display()
+{
+    if(top==NULL)
+    {
+        printf("\nStack Empty");
+    }
+    else
+    {
+        struct node *ptr;
+        ptr=top;
+        while(ptr!=NULL)
+        {
+            printf("%d\t",ptr->data);
+            ptr=ptr->next;
+        }
+    }
+}
+
+
+void main()
+{
+    int n,c;
+    while(1)
+    {
+       printf("\n\n1.push\t 2.pop\t 3.display\t 4.exit\n your choice:");
+       scanf("%d",&c);
+       switch(c)
+       {
+           case 1: printf("\nenter element:");
+                   scanf("%d",&n);
+                   push(n);
+                   break;
+            case 2:pop();
+            break;
+            case 3: display();
+            break;
+            case 4: exit(0);
+            default: printf("\ninvalid choice");
+       }
+    }
+}
+
+
+
+
+
+
+/* Output
+
+1.push   2.pop   3.display       4.exit
+ your choice:2
+
+Stack Underflow
+
+1.push   2.pop   3.display       4.exit
+ your choice:3
+
+Stack Empty
+
+1.push   2.pop   3.display       4.exit
+ your choice:1
+
+enter element:3
+
+
+1.push   2.pop   3.display       4.exit
+ your choice:1
+
+enter element:5
+
+
+1.push   2.pop   3.display       4.exit
+ your choice:1
+
+enter element:7
+
+
+1.push   2.pop   3.display       4.exit
+ your choice:3
+7       5       3
+
+1.push   2.pop   3.display       4.exit
+ your choice:2
+deleted:7
+
+1.push   2.pop   3.display       4.exit
+ your choice:2
+deleted:5
+
+1.push   2.pop   3.display       4.exit
+ your choice:3
+3
+
+1.push   2.pop   3.display       4.exit
+ your choice:2
+deleted:3
+
+1.push   2.pop   3.display       4.exit
+ your choice:2
+
+Stack Underflow
+
+1.push   2.pop   3.display       4.exit
+ your choice:3
+
+Stack Empty
+
+1.push   2.pop   3.display       4.exit
+ your choice:4
+
+Process returned 0 (0x0)   execution time : 34.971 s
+Press any key to continue.
+*/
