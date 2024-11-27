@@ -1,0 +1,218 @@
+//code
+
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *prev, *next;
+};
+struct node *start=NULL;
+
+
+struct node *create(struct node *start)
+{
+    struct node *ptr, *newnode;
+    int num;
+    printf("\nenter -1 to end\nenter num:");
+    scanf("%d",&num);
+    while(num!=-1)
+    {
+        newnode=(struct node*)malloc(sizeof(struct node*));
+        newnode->data=num;
+        if(start==NULL)
+        {
+         newnode->next=NULL;
+         newnode->prev=NULL;
+         start=newnode;
+        }
+        else
+        {
+            ptr=start;
+            while(ptr->next!=NULL)
+                ptr=ptr->next;
+            newnode->prev=ptr;
+            newnode->next=ptr->next;
+            ptr->next=newnode;
+        }
+         printf("\nenter num:");
+        scanf("%d",&num);
+    }
+    return start;
+};
+
+struct node *display(struct node *start)
+{
+    struct node *ptr;
+    ptr=start;
+    while(ptr!=NULL)
+    {
+        printf("%d ", ptr->data);
+        ptr=ptr->next;
+    }
+    return start;
+};
+
+struct node *insert_before(struct node *start)
+{
+    struct node *newnode, *ptr;
+    int num, val;
+    printf("\nenter num:");
+    scanf("%d", &num);
+    printf("\n enter the val before you want to insert:");
+    scanf("%d",&val);
+   newnode=(struct node*)malloc(sizeof(struct node*));
+    newnode->data=num;
+    if(start->data==val)
+    {
+        ptr=start;
+        newnode->next=start;
+        newnode->prev=NULL;
+        start->prev=newnode;
+        start=newnode;
+    }
+    else
+    {
+        ptr=start;
+        while(ptr->data!=val)
+        {
+            ptr=ptr->next;
+        }
+        newnode->next=ptr;
+        newnode->prev=ptr->prev;
+        ptr->prev->next=newnode;
+        ptr->prev=newnode;
+    }
+    return start;
+};
+
+struct node *delete_node(struct node *start)
+{
+    int val;
+    struct node *ptr;
+    printf("\n enter the val:");
+    scanf("%d", &val);
+    ptr=start;
+    if(ptr->data==val){
+
+        start=start->next;
+        start->prev=NULL;
+        free(ptr);
+    }
+    else{
+
+        while(ptr->data!=val)
+            ptr=ptr->next;
+        if(ptr->next==NULL)
+        {
+           ptr->prev->next=NULL;
+            free(ptr);
+        }
+        else{
+                ptr->next->prev=ptr->prev;
+                ptr->prev->next=ptr->next;
+                free(ptr);
+            }
+    }
+    return start;
+};
+
+void main()
+{
+    int ch;
+    while(1)
+    {
+        printf("\n\n1.create \t 2.Display \t 3.Insert_before \t4.delete_node\t5.exit");
+        printf("\nenter your choice");
+        scanf("%d",&ch);
+        struct node *newnode;
+        switch(ch)
+        {
+            case 1: start=create(start);
+                    break;
+            case 2: start=display(start);
+            break;
+            case 3 : start=insert_before(start);
+            break;
+            case 4: start=delete_node(start);
+            break;
+            case 5:  exit(0);
+            default:printf("invalid");
+        }
+
+    }
+}
+
+
+
+
+
+
+
+/* Output
+
+1.create         2.Display       3.Insert_before        4.delete_node   5.exit
+enter your choice1
+
+enter -1 to end
+enter num:3
+
+enter num:5
+
+enter num:9
+
+enter num:7
+
+enter num:1
+
+enter num:-1
+
+
+1.create         2.Display       3.Insert_before        4.delete_node   5.exit
+enter your choice2
+3 5 9 7 1
+
+1.create         2.Display       3.Insert_before        4.delete_node   5.exit
+enter your choice4
+
+ enter the val:1
+
+
+1.create         2.Display       3.Insert_before        4.delete_node   5.exit
+enter your choice2
+3 5 9 7
+
+1.create         2.Display       3.Insert_before        4.delete_node   5.exit
+enter your choice4
+
+ enter the val:9
+
+
+1.create         2.Display       3.Insert_before        4.delete_node   5.exit
+enter your choice2
+3 5 7
+
+1.create         2.Display       3.Insert_before        4.delete_node   5.exit
+enter your choice4
+
+ enter the val:3
+
+
+1.create         2.Display       3.Insert_before        4.delete_node   5.exit
+enter your choice2
+5 7
+
+1.create         2.Display       3.Insert_before        4.delete_node   5.exit
+enter your choice3
+
+enter num:8
+
+ enter the val before you want to insert:5
+
+
+1.create         2.Display       3.Insert_before        4.delete_node   5.exit
+enter your choice2
+8 5 7
+
+
+*/
