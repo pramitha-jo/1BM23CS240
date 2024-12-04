@@ -1,0 +1,130 @@
+//Input
+
+
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct bst
+{
+    int data;
+    struct bst *left, *right;
+}node;
+
+node *create()
+{
+    node *temp;
+    temp=(node *)malloc(sizeof(node*));
+    printf("enter data");
+    scanf("%d", &temp->data);
+    temp->left=NULL;
+    temp->right=NULL;
+    return temp;
+}
+
+node *insert(node *root, node *temp)
+{
+    if(temp->data<root->data)
+    {
+      if(root->left!=NULL)
+      insert(root->left, temp);
+      else
+        root->left=temp;
+
+    }
+    if(temp->data>root->data)
+    {
+        if(root->right!=NULL)
+            insert(root->right, temp);
+        else
+            root->right=temp;
+    }
+}
+
+
+
+void inorder( node *root)
+{
+    if(root!=NULL)
+    {
+        inorder(root->left);
+        printf("%d  ", root->data);
+        inorder(root->right);
+    }
+
+}
+
+void preorder( node *root)
+{
+    if(root!=NULL)
+    {
+        printf("%d  ", root->data);
+        preorder(root->left);
+        preorder(root->right);
+    }
+
+}
+
+void postorder( node *root)
+{
+    if(root!=NULL)
+    {
+        postorder(root->left);
+        postorder(root->right);
+        printf("%d  ", root->data);
+    }
+
+}
+
+
+void main()
+{
+
+    char ch;
+    node *root=NULL, *temp;
+    do
+    {
+        temp=create();
+        if(root==NULL)
+            root=temp;
+        else
+            insert(root, temp);
+        printf("\nyou want to enter more number(y/n)");
+        getchar();
+        scanf("%c",&ch);
+    }while(ch=='y'||ch=='Y');
+    printf("\n Preorder:");
+    preorder(root);
+     printf("\n Inorder:");
+    inorder(root);
+     printf("\n Postorder:");
+    postorder(root);
+
+}
+
+
+/*Output
+enter data20
+
+you want to enter more number(y/n)y
+enter data25
+
+you want to enter more number(y/n)y
+enter data15
+
+you want to enter more number(y/n)y
+enter data10
+
+you want to enter more number(y/n)y
+enter data5
+
+you want to enter more number(y/n)y
+enter data35
+
+you want to enter more number(y/n)n
+
+ Preorder:20 15 10 5 25 35
+ Inorder:5 10 15 20 25 35
+ Postorder:5 10 15 35 25 20
+[Process completed (code 4) - press Enter]
+
+*/
+
