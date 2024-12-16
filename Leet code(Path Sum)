@@ -1,0 +1,16 @@
+bool hasPathSum(struct TreeNode* root, int targetSum) {
+    // Base case: if the root is NULL, return false
+    if (root == NULL) {
+        return false;
+    }
+    
+    // Check if the current node is a leaf node
+    if (root->left == NULL && root->right == NULL) {
+        // If it's a leaf, check if the targetSum equals the node's value
+        return targetSum == root->val;
+    }
+    
+    // Recursively check the left and right subtrees with updated targetSum
+    int remainingSum = targetSum - root->val;
+    return hasPathSum(root->left, remainingSum) || hasPathSum(root->right, remainingSum);
+}
