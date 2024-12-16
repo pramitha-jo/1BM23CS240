@@ -1,0 +1,118 @@
+//Input
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define TABLE_SIZE 100 // Size of the hash table (m memory locations)
+
+// Structure to represent an employee record
+typedef struct {
+    int key;    // 4-digit key
+    char name[30];
+    int age;
+} Employee;
+
+// Hash table array
+Employee* hashTable[TABLE_SIZE];
+
+// Initialize the hash table
+void initializeHashTable() {
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        hashTable[i] = NULL;
+    }
+}
+
+// Hash function to compute memory address
+int hashFunction(int key) {
+    return key % TABLE_SIZE;
+}
+
+// Insert an employee record into the hash table
+void insert(Employee* emp) {
+    int index = hashFunction(emp->key);
+
+    // Linear probing to handle collisions
+    while (hashTable[index] != NULL) {
+        index = (index + 1) % TABLE_SIZE; // Go to the next index
+    }
+
+    hashTable[index] = emp;
+}
+
+// Search for an employee record by key
+Employee* search(int key) {
+    int index = hashFunction(key);
+
+    // Search using linear probing
+    while (hashTable[index] != NULL) {
+        if (hashTable[index]->key == key) {
+            return hashTable[index];
+        }
+        index = (index + 1) % TABLE_SIZE;
+    }
+
+    return NULL; // Record not found
+}
+
+// Display the hash table
+void displayHashTable() {
+    printf("\nHash Table:\n");
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        if (hashTable[i] != NULL) {
+            printf("Index %d: Key: %d, Name: %s, Age: %d\n", i, hashTable[i]->key, hashTable[i]->name, hashTable[i]->age);
+        }
+    }
+}
+
+// Main function
+int main() {
+    initializeHashTable();
+
+    int n;
+    printf("Enter the number of employees: ");
+    scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        Employee* emp = (Employee*)malloc(sizeof(Employee));
+
+        printf("Enter key (4-digit), name, and age for employee %d: ", i + 1);
+        scanf("%d %s %d", &emp->key, emp->name, &emp->age);
+
+        insert(emp);
+    }
+
+    displayHashTable();
+
+    int searchKey;
+    printf("\nEnter a key to search for: ");
+    scanf("%d", &searchKey);
+
+    Employee* result = search(searchKey);
+    if (result != NULL) {
+        printf("Employee found: Key: %d, Name: %s, Age: %d\n", result->key, result->name, result->age);
+    } else {
+        printf("Employee with key %d not found.\n", searchKey);
+    }
+
+    return 0;
+}
+
+
+
+
+//Output
+Enter the number of employees: 3
+Enter key (4-digit), name, and age for employee 1: 1234 prami 20
+Enter key (4-digit), name, and age for employee 2: 5678 rakshi 21
+Enter key (4-digit), name, and age for employee 3: 3579 sahana 19
+
+Hash Table:
+Index 34: Key: 1234, Name: prami, Age: 20
+Index 78: Key: 5678, Name: rakshi, Age: 21
+Index 79: Key: 3579, Name: sahana, Age: 19
+
+Enter a key to search for: 3579
+Employee found: Key: 3579, Name: sahana, Age: 19
+
+Process returned 0 (0x0)   execution time : 41.762 s
+Press any key to continue.
