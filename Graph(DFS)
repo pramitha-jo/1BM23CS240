@@ -38,14 +38,26 @@ void main()
     dfs(1);
     printf("\n");
 
+    for(int i=1;i<=n;i++)
+    {
+        if(s[i])
+            count++;
+    }
+    if(count==n)
+        printf("Graph is Connected");
+    else
+        printf("Graph is disconnected");
+
 }
+
 
 
 
 //Output
 
-enter the no. of vertices:6
-Enter the Adjacent matrix:
+ enter the no. of vertices:6
+
+ Enter the Adjacent matrix:
 0 1 1 1 1 0
 1 0 0 1 0 0
 1 0 0 1 1 1
@@ -58,6 +70,6 @@ Enter the Adjacent matrix:
 4->3
 3->5
 3->6
+Graph is Connected
+Process returned 18 (0x12)   execution time : 49.235 s
 
-Process returned 10 (0xA)   execution time : 50.652 s
-Press any key to continue.
